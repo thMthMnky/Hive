@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/d4e1c88db3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Hive</title>
+</head>
+<body>
+    <header class="main-top row">
+        <img src="img/main-logo.png" alt="Hive" class="main-logo column">
+        <div class="scoreboard column">
+            <div class="score-container">
+                <label for="curr_score" class="score-field">Current Score</label>
+                <input type="text" class="score-value" id="curr_score" value="9000">
+            </div>
+            <div class="score-container">
+                <label for="max_score" class="score-field">Top Score</label>
+                <input type="text" class="score-value" id="max_score" value="20000">
+            </div>
+        </div>
+    </header>
+
+    <section class="main-showcase row">
+        <div class="gameboard column-max-width">
+            <canvas id="main_gameboard_canvas dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" width="inherit" height="inherit"></canvas>
+        </div>
+    </section>
+
+    <section class="main-bot row">
+        <div class="left column"></div>
+        <div class="center column"></div>
+        <div class="right column"></div>
+    </section>
+    <script src="scripts/main_gameboard.js"></script>
+</body>
+</html>
