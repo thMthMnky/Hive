@@ -7,6 +7,44 @@
     <script src="https://kit.fontawesome.com/d4e1c88db3.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css">
     <title>Hive</title>
+    <script type="text/javascript">
+        console.log('Sup');
+        var drag = function (e) {
+            document.getElementsByClassName('btn-container')[0].style.display = 'none';
+        }
+
+        // function drag(ev) {
+        //     ev.dataTransfer.setData("text", ev.target.id);
+        // }
+
+        var drag_end = function (e) {
+            console.log('e:', e);
+            var new_position = [];
+            new_position[0] = e.screenX;
+            new_position[1] = e.screenY;
+
+            var x = document.getElementsByClassName('btn-container')[0];
+            x.style.display = 'block';
+            x.style.transform = "translate("+new_position[0]+"px, "+new_position[1]+"px)";
+
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+
+        function drop(ev) {
+
+            ev.preventDefault();
+            console.log("[Call:prop(event), "+Date.UTC()+"] event:", ev);
+
+            var data = ev.dataTransfer.getData("text");
+            console.log(data);
+
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
 </head>
 <body>
     <header class="main-top row">
@@ -22,10 +60,20 @@
             </div>
         </div>
     </header>
+    <div class="btn-container" ondrag="drag(event);" ondragend="drag_end(event);" draggable="true">
+        <button class="btn btn-record"><i class="fas fa-video"></i></button>
+        <button class="btn btn-start"><i class="fas fa-play"></i></i></button>
+        <button class="btn btn-stop"><i class="fas fa-stop"></i></button>
+        <button class="btn btn-pause"><i class="fas fa-step-backward"></i></button>
+        <button class="btn btn-pause"><i class="fas fa-backward"></i></button>
+        <button class="btn btn-pause"><i class="fas fa-pause"></i></button>
+        <button class="btn btn-pause"><i class="fas fa-forward"></i></button>
+        <button class="btn btn-pause"><i class="fas fa-step-forward"></i></button>
+    </div>
 
     <section class="main-showcase row">
         <div class="gameboard column-max-width">
-            <canvas id="main_gameboard_canvas dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" width="inherit" height="inherit"></canvas>
+            <canvas id="gameboard_canvas" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" width="inherit" height="inherit"></canvas>
         </div>
     </section>
 

@@ -14,7 +14,6 @@
      align-items: center;
      font-family: Arial, Helvetica, sans-serif;
      min-height: 100vh;
-     display: flex;
      margin: 8px;
      width: 100%;
      height: 100%;
@@ -31,19 +30,19 @@
 }
 
 .scoreboard {
-    border: 1px solid rgb(104, 101, 93);
-    position: absolute;
-    right: 20px;
+    border: 1px solid var(--primary-border-color);
     display: flex;
     flex-direction: column;
+    position: absolute;
+    right: 20px;
 }
 
 .score-container {
     /* border: 1px solid rgb(218, 51, 9); */
-    margin: 2px;
     position: relative;
     display: flex;
     flex-direction: row;
+    margin: 2px;
 }
 
 .score-field {
@@ -75,11 +74,11 @@
 }
 
 .main-showcase {
-    border: 1px solid rgb(56, 34, 47);
+    border: 1px solid var(--primary-border-color);
     position: relative;
     top: auto;
     height: 500px;
-    margin-top: 50px;
+    margin-top: 35px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -91,4 +90,17 @@
     margin: auto;
     background-color: var(--main-hex-color);
     border-radius: 5px;
+}
+
+.btn-container {
+    border: 1px solid  var(--primary-border-color);
+    position: absolute;
+    width: max-content;
+    bottom: 20px;
+    background-color: rgb(59, 12, 38);;
+}
+
+.btn {
+    padding: 1rem;
+    height: auto;
 }
