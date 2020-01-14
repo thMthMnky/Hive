@@ -11,7 +11,7 @@
         console.log('Sup');
         var drag = function (e) {
             document.getElementsByClassName('btn-container')[0].style.display = 'none';
-        }
+        };
 
         // function drag(ev) {
         //     ev.dataTransfer.setData("text", ev.target.id);
@@ -19,15 +19,15 @@
 
         var drag_end = function (e) {
             console.log('e:', e);
-            var new_position = [];
-            new_position[0] = e.screenX;
-            new_position[1] = e.screenY;
+            // var new_position = [];
+            // new_position[0] = e.screenX;
+            // new_position[1] = e.screenY;
 
-            var x = document.getElementsByClassName('btn-container')[0];
-            x.style.display = 'block';
-            x.style.transform = "translate("+new_position[0]+"px, "+new_position[1]+"px)";
+            // var x = document.getElementsByClassName('btn-container')[0];
+            // x.style.display = 'block';
+            // x.style.transform = "translate("+new_position[0]+"px, "+new_position[1]+"px)";
 
-        }
+        };
 
         function allowDrop(ev) {
             ev.preventDefault();
