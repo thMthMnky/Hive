@@ -48,7 +48,7 @@
 </head>
 <body>
     <header class="main-top row">
-        <img src="img/main-logo.png" alt="Hive" class="main-logo column">
+        <img src="img/main-logo.png" alt="Hive" class="main-logo column" style="border: blue; border-style: solid;">
         <div class="scoreboard column">
             <div class="score-container">
                 <label for="curr_score" class="score-field">Current Score</label>
@@ -72,9 +72,7 @@
     </div>
 
     <section class="main-showcase row">
-        <div class="gameboard column-max-width">
-            <canvas id="gameboard_canvas" class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" width="inherit" height="inherit"></canvas>
-        </div>
+        <div class="gameboard"></div>
     </section>
 
     <section class="main-bot row">

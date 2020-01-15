@@ -1,5 +1,4 @@
-const DEBUGGING = true;
-const canvas = document.getElementById("gameboard_canvas");
+const DEBUGGING = false;
 
 function ScalarMatrix(scalar){
     if(DEBUGGING) console.log("   ScalarMatrix("+scalar+")...");
@@ -37,6 +36,7 @@ ScalarMatrix.prototype.vect_mult = function(vector){
     if(DEBUGGING) console.log("       [RotationMatrix.vect_mult("+vector+")] result[0]:", result[0]);
     if(DEBUGGING) console.log("       [RotationMatrix.vect_mult("+vector+")] result[1]:", result[1]);
 
+    return result;
 };
 
 function RotationMatrix(angle, type='rad', pre=4){
@@ -81,15 +81,15 @@ RotationMatrix.prototype.vect_mult = function(vector){
 };
 
 /** Testing */
-// var mat = new RotationMatrix(60, 'deg');
-// console.log(mat);
-// console.log(mat.vect_mult([0, 1]));
+var mat = new RotationMatrix(60, 'deg');
+console.log('* mat\n', mat);
+console.log('* mat X [0,1]\n', mat.vect_mult([0, 1]));
 
-// var mat2 = new ScalarMatrix(5);
-// console.log(mat2);
-// console.log(mat2.vect_mult([1, 1]));
+var mat2 = new ScalarMatrix(5);
+console.log('@ mat2', mat2);
+console.log('@  mat2 X [1,1]', mat2.vect_mult([1, 1]));
 
-// console.log(mat2.vect_mult(mat.vect_mult([1, 0])));
+console.log('@ mat2 X mat X [1,0]', mat2.vect_mult(mat.vect_mult([1, 0])));
 
 /** A utility function to draw a regular polygon */
 function regularPolygon(ctx, n, centerX, centerY, radius) {
@@ -101,16 +101,16 @@ function regularPolygon(ctx, n, centerX, centerY, radius) {
     var next_point;
 
     ctx.moveTo(centerX + radius, centerY);
-    console.log("       [regularPolygon("+ctx+", "+n+", "+centerX+", "+centerY+", "+radius+")] ctx.moveTo(" + (centerX + radius) + ", " + centerY + ")");
+    if(DEBUGGING) console.log("       [regularPolygon("+ctx+", "+n+", "+centerX+", "+centerY+", "+radius+")] ctx.moveTo(" + (centerX + radius) + ", " + centerY + ")");
 
     ctx.beginPath();
     if(DEBUGGING) console.log("       [regularPolygon("+ctx+", "+n+", "+centerX+", "+centerY+", "+radius+")] ctx.beginPath()");
 
-    for (var i = 0; i < n; i++) {
-        try{
-            scale_by_radius = new ScalarMatrix(radius);
-            if(DEBUGGING) console.log("       [regularPolygon("+ctx+", "+n+", "+centerX+", "+centerY+", "+radius+")] scale_by_radius:", scale_by_radius);
+    scale_by_radius = new ScalarMatrix(radius);
+    if(DEBUGGING) console.log("       [regularPolygon("+ctx+", "+n+", "+centerX+", "+centerY+", "+radius+")] scale_by_radius:", scale_by_radius);
 
+    for (var i = 0; i <= n; i++) {
+        try{
             rotate_by_angle = new RotationMatrix((360 * i) / n, 'deg');
             if(DEBUGGING) console.log("       [regularPolygon("+ctx+", "+n+", "+centerX+", "+centerY+", "+radius+")] rotate_by_angle:", rotate_by_angle);
 
@@ -124,7 +124,7 @@ function regularPolygon(ctx, n, centerX, centerY, radius) {
 
         }
     }
-
+    ctx.lineTo(centerX + 2*radius, centerY);
     if(true){
         ctx.stroke();
         if(DEBUGGING) console.log("ctx.stroke()");
@@ -134,15 +134,31 @@ function regularPolygon(ctx, n, centerX, centerY, radius) {
     }
 }
 
-if (canvas.getContext) {
-    var ctx = canvas.getContext('2d');
+var n = 6;
+var radius = 50;
+var centerX = radius;
+var centerY = radius*Math.sqrt(3)/2;
 
-    var context = String(ctx);
-    context = context.substring(7, context.length-1);
-    var n = 6;
-    var centerX = 20;
-    var centerY = 35;
-    var radius = 10;
+const gameboard = document.createElement('canvas');
+gameboard.width=1235; //2*radius;
+gameboard.height=523; //2*radius;
+gameboard.style.position = 'absolute';
+gameboard.style.margin = '0 auto';
+
+
+const gameboard_container = document.getElementsByClassName("gameboard")[0];
+gameboard_container.appendChild(gameboard);
+
+if (gameboard.getContext) {
+    var ctx = gameboard.getContext('2d');
+    console.log(gameboard.width);
+    console.log(gameboard.height);
+
     regularPolygon(ctx, n, centerX, centerY, radius);
-    if(DEBUGGING) console.log(" regularPolygon("+context+", "+n+", "+centerX+", "+centerY+", "+radius+")...");
+    for(var i = 0; i < 9; i++){
+        for(var j = 0; j < 6; j++){
+            regularPolygon(ctx, n, centerX+3*radius*i, centerY+Math.sqrt(3)*radius*j, radius);
+        }
+    }
+    if(DEBUGGING) console.log(" regularPolygon("+ctx+", "+n+", "+centerX+", "+centerY+", "+radius+")...");
 }
