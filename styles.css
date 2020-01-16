@@ -17,27 +17,33 @@
  }
 
 .main-top {
-    /* border: 1px solid blue; */
     position: relative;
+    padding: 10px;
     width: inherit;
     height: 82px;
-    padding: 10px;
+    /* border: 1px solid blue; */
 }
 
-.scoreboard {
-    border: 1px solid var(--primary-border-color);
-    display: flex;
-    flex-direction: column;
+.main-logo {
     position: absolute;
-    right: 20px;
+    left: 10px;
+    height: inherit;
+    /* border: 1px solid rgba(75, 187, 47, 0.904); */
+}
+
+/* The scoreboard */
+.scoreboard {
+    position: absolute;
+    right: 10px;
+    border: 1px solid var(--primary-border-color);
 }
 
 .score-container {
-    /* border: 1px solid rgb(218, 51, 9); */
     position: relative;
     display: flex;
     flex-direction: row;
-    margin: 2px;
+    /* margin: 2px; */
+    /* border: 1px solid rgb(218, 51, 9); */
 }
 
 .score-field {
@@ -47,7 +53,7 @@
     font-size: medium;
     width: 100px;
     height: 50%;
-    margin: 2px;
+    /* margin: 2px; */
     padding: 5px;
 }
 
@@ -60,13 +66,6 @@
     padding: 5px;
 }
 
-.main-logo {
-    /* border: 1px solid rgba(75, 187, 47, 0.904); */
-    height: inherit;
-    position: absolute;
-    left: 20px;
-}
-
 .main-showcase {
     border: 1px solid var(--primary-border-color);
 
@@ -74,22 +73,41 @@
 
 .gameboard {
     position: absolute;
-    background-color: var(--main-hex-color);
     border-radius: 5px;
     width: 100%;
     height: calc(100% - var(--footer-available-height) - var(--header-available-height));
+    background-color: var(--main-hex-color);
+    border: 1px solid var(--primary-border-color);
 
+}
+
+.main-bot {
+    position: absolute;
+    bottom: 0rem;
 }
 
 .btn-container {
     border: 1px solid  var(--primary-border-color);
-    position: absolute;
+    position: relative;
     width: max-content;
-    bottom: 20px;
-    background-color: rgb(59, 12, 38);;
+    background-color: rgb(53, 49, 45);;
+    cursor: pointer
 }
 
 .btn {
     padding: 1rem;
     height: auto;
+}
+
+.hold {
+    border: solid #ccc 4px;
+}
+
+.hovered {
+    background: #f4f4f4;
+    border-style: dashed;
+}
+
+.invisible {
+    display: none;
 }

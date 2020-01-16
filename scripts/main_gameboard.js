@@ -80,17 +80,6 @@ RotationMatrix.prototype.vect_mult = function(vector){
     return result;
 };
 
-/** Testing */
-var mat = new RotationMatrix(60, 'deg');
-console.log('* mat\n', mat);
-console.log('* mat X [0,1]\n', mat.vect_mult([0, 1]));
-
-var mat2 = new ScalarMatrix(5);
-console.log('@ mat2', mat2);
-console.log('@  mat2 X [1,1]', mat2.vect_mult([1, 1]));
-
-console.log('@ mat2 X mat X [1,0]', mat2.vect_mult(mat.vect_mult([1, 0])));
-
 /** A utility function to draw a regular polygon */
 function regularPolygon(ctx, n, centerX, centerY, radius) {
     // console.log("ctx:", ctx);
@@ -140,8 +129,8 @@ var centerX = radius;
 var centerY = radius*Math.sqrt(3)/2;
 
 const gameboard = document.createElement('canvas');
-gameboard.width=1235; //2*radius;
-gameboard.height=523; //2*radius;
+gameboard.width=0.85*screen.width; //2*radius;
+gameboard.height=0.66*screen.height; //2*radius;
 gameboard.style.position = 'absolute';
 gameboard.style.margin = '0 auto';
 
@@ -155,10 +144,49 @@ if (gameboard.getContext) {
     console.log(gameboard.height);
 
     regularPolygon(ctx, n, centerX, centerY, radius);
-    for(var i = 0; i < 9; i++){
-        for(var j = 0; j < 6; j++){
+    for(var i = 0; i < 13; i++){
+        for(var j = 0; j < 10; j++){
             regularPolygon(ctx, n, centerX+3*radius*i, centerY+Math.sqrt(3)*radius*j, radius);
         }
     }
     if(DEBUGGING) console.log(" regularPolygon("+ctx+", "+n+", "+centerX+", "+centerY+", "+radius+")...");
+}
+
+
+const controller = document.querySelector('.btn-container');
+const some_container = document.querySelector('.gameboard');
+
+controller.addEventListener('dragstart', dragstart);
+controller.addEventListener('dragend', dragend);
+
+some_container.addEventListener('dragover', dragOver);
+some_container.addEventListener('dragenter', dragEnter);
+some_container.addEventListener('dragleave', dragLeave);
+some_container.addEventListener('drop', dragDrop);
+
+function dragstart(){
+    this.className += ' hold';
+    setTimeout(() => (this.className = 'invisible'), 0);
+}
+
+function dragend(){
+    this.className = 'btn-container';
+}
+
+function dragOver(e){
+    e.preventDefault();
+}
+
+function dragEnter(e){
+    e.preventDefault();
+    this.className += ' hovered';
+}
+
+function dragLeave(e){
+    this.className = 'gameboard';
+}
+
+function dragDrop(e){
+    this.appendChild(controller);
+    this.className = 'gameboard';
 }
