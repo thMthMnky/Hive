@@ -10,13 +10,14 @@
     </script>
 </head>
 <body>
-    <header class="main-top row">
+    <header class="main-top">
         <img src="img/main-logo.png" alt="Hive" class="main-logo column" style="border: blue; border-style: solid;">
         <div class="scoreboard column">
             <div class="score-container">
                 <label for="curr_score" class="score-field">Current Score</label>
                 <input type="text" class="score-value" id="curr_score" value="9000">
             </div>
+
             <div class="score-container">
                 <label for="max_score" class="score-field">Top Score</label>
                 <input type="text" class="score-value" id="max_score" value="20000">
@@ -24,11 +25,8 @@
         </div>
     </header>
 
-    <section class="main-showcase row">
+    <section class="main-showcase">
         <div class="gameboard"></div>
-    </section>
-
-    <section class="main-bot row">
         <div class="btn-container" draggable="true">
             <button class="btn btn-record"><i class="fas fa-video"></i></button>
             <button class="btn btn-start"><i class="fas fa-play"></i></i></button>
@@ -40,6 +38,8 @@
             <button class="btn btn-pause"><i class="fas fa-step-forward"></i></button>
         </div>
     </section>
+
+
     <script src="scripts/main_gameboard.js"></script>
 </body>
 </html>

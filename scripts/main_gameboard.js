@@ -129,8 +129,8 @@ var centerX = radius;
 var centerY = radius*Math.sqrt(3)/2;
 
 const gameboard = document.createElement('canvas');
-gameboard.width=0.85*screen.width; //2*radius;
-gameboard.height=0.66*screen.height; //2*radius;
+gameboard.width=screen.width; //2*radius;
+gameboard.height=0.675*screen.height; //2*radius;
 gameboard.style.position = 'absolute';
 gameboard.style.margin = '0 auto';
 
@@ -153,40 +153,54 @@ if (gameboard.getContext) {
 }
 
 
+
 const controller = document.querySelector('.btn-container');
+controller.addEventListener('dragstart', dragStart);
+controller.addEventListener('dragend', dragEnd);
+
 const some_container = document.querySelector('.gameboard');
-
-controller.addEventListener('dragstart', dragstart);
-controller.addEventListener('dragend', dragend);
-
-some_container.addEventListener('dragover', dragOver);
 some_container.addEventListener('dragenter', dragEnter);
 some_container.addEventListener('dragleave', dragLeave);
-some_container.addEventListener('drop', dragDrop);
 
-function dragstart(){
+document.body.addEventListener('dragover', dragOver);
+document.body.addEventListener('drop', dragDrop);
+
+
+function dragStart(e){
     this.className += ' hold';
     setTimeout(() => (this.className = 'invisible'), 0);
-}
 
-function dragend(){
-    this.className = 'btn-container';
+    var style = window.getComputedStyle(e.target, null);
+    e.dataTransfer.setData("text/plain",
+    (parseInt(style.getPropertyValue("left"),10) - e.clientX) + ',' +
+    (parseInt(style.getPropertyValue("top"),10) - e.clientY));
 }
 
 function dragOver(e){
     e.preventDefault();
+    return false;
 }
 
 function dragEnter(e){
     e.preventDefault();
     this.className += ' hovered';
+    // return false;
 }
 
 function dragLeave(e){
     this.className = 'gameboard';
+    // return false;
+}
+
+function dragEnd(){
+    this.className = 'btn-container';
+    return false;
 }
 
 function dragDrop(e){
-    this.appendChild(controller);
-    this.className = 'gameboard';
+    e.preventDefault();
+    var offset = e.dataTransfer.getData("text/plain").split(',');
+    controller.style.left = (e.clientX + parseInt(offset[0],10)) + 'px';
+    controller.style.top = (e.clientY + parseInt(offset[1],10)) + 'px';
+    return false;
 }
